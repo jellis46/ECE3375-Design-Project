@@ -43,7 +43,7 @@ int main(void) {
 	int ledStatus = 0;
 	int ledCounter = 0;
     int alarmShutoffThreshold = 50;
-
+    
     volatile int * key_ptr = (int *)KEY_BASE;
 	int temp;
 
@@ -88,7 +88,7 @@ int main(void) {
                 alarmActive = 1;
             }
 
-	        *timer = 1000000;
+	        *timer = 100000000;
             temp=*(timer + 3);
         }
 
@@ -97,13 +97,13 @@ int main(void) {
 			if (ledCounter == 500000) {
 				if (ledStatus == 0)
 				{
-					ledStatus = 1;
-					*(LED_ptr) |= 0x1;
+                    ledStatus = 1;
+                    *(LED_ptr) |= 0x1;
 				}
 				else
 				{
-					ledStatus = 0;
-					*(LED_ptr) &= ~0x1;
+                    ledStatus = 0;
+                    *(LED_ptr) &= ~0x1;
 				}
 			}
 
@@ -226,6 +226,6 @@ void DisplayTime(int val, volatile char * display) {
 int getForceInput() {
     //simulate force using switches
 	volatile int * num= (int *)SW_BASE;
-    
+
 	return *num;
 }
